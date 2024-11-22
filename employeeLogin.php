@@ -30,7 +30,7 @@ include "connection/connect.php";
                             <input type="password" name="password" class="form-control" id="password" placeholder="Please ennter your password">
                         </div>
                         <div class="text-center"><button type="submit" class="btn btn-primary">Login</button></div>
-                        <p>You are employee? <a href="employeeLogin.php">Login here.</a></p>
+                        <p>You are admin? <a href="index.php">Login here.</a></p>
                     </form>
                 </div>
             </div>
