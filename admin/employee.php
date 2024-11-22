@@ -1,18 +1,7 @@
 <?php
 @include '../connection/connect.php';
-session_start();
-$emp_ID = $_SESSION['emp_ID'];
-$select = "SELECT * FROM employee where emp_ID = '$emp_ID'";
+$select = "SELECT * FROM employee";
 $result = mysqli_query($con, $select);
-if($row = mysqli_fetch_assoc($result)){
-    $emp_ID = $row['emp_ID'];
-    $fname = $row['fname'];
-    $lname = $row['lname'];
-    $gender = $row['gender'];
-    $age = $row['age'];
-    $contact_add = $row['contact_add'];
-    $emp_email = $row['emp_email'];
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +10,7 @@ if($row = mysqli_fetch_assoc($result)){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee dashboard</title>
+    <title>Admin dashboard</title>
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -36,7 +25,7 @@ if($row = mysqli_fetch_assoc($result)){
         <div class="main p-3">
             <div class="text-center">
                 <h1>
-                    Hello <?php echo htmlspecialchars($fname) . ' ' . htmlspecialchars($lname); ?>!
+                    Employee
                 </h1>
             </div>
             <table class="table table-inverse">
@@ -49,16 +38,34 @@ if($row = mysqli_fetch_assoc($result)){
                     <th>Age</th>
                     <th>Contact Address</th>
                     <th>Email</th>
+                    <th>Password</th>
                 </tr>
             </thead>
             <tbody>
-                <td><?php echo $emp_ID ?></td>
-                <td><?php echo $fname ?></td>
-                <td><?php echo $lname ?></td>
-                <td><?php echo $gender ?></td>
-                <td><?php echo $age ?></td>
-                <td><?php echo $contact_add ?></td>
-                <td><?php echo $emp_email ?></td>
+                <?php
+                if ($result) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $emp_ID = $row['emp_ID'];
+                        $fname = $row['fname'];
+                        $lname = $row['lname'];
+                        $gender = $row['gender'];
+                        $age = $row['age'];
+                        $contact_add = $row['contact_add'];
+                        $emp_email = $row['emp_email'];
+                        $emp_pass = $row['emp_pass'];
+                        echo '<tr>
+                            <td>'.$emp_ID.' </td>
+                            <td>'.$fname.' </td>
+                            <td>'.$lname.' </td>
+                            <td>'.$gender.' </td>
+                            <td>'.$age.' </td>
+                            <td>'.$contact_add.' </td>
+                            <td>'.$emp_email.' </td>
+                            <td>'.$emp_pass.' </td>
+                        </tr>';
+                    }
+                }
+                ?>
             </tbody>
             </table>
         </div>

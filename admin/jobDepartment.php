@@ -20,7 +20,7 @@
         <div class="main p-3">
             <div class="text-center">
                 <h1>
-                    Hello admin!
+                    Job Department
                 </h1>
             </div>
         </div>

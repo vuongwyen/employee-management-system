@@ -14,9 +14,9 @@ if (isset($_POST['submit'])) {
     $result = mysqli_query($con, $select);
 
     if (mysqli_num_rows($result) > 0) {
-
+    $emp_id = mysqli_fetch_assoc($result);
+    $_SESSION['emp_ID'] = $emp_id['emp_ID'];
     header('location:employee/index.php');
-    exit;
 
     } else {
         $error[] = 'Wrong email or password!';
