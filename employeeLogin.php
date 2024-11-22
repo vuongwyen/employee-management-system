@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
     exit;
 
     } else {
-        $error[] = 'Email hoặc mật khẩu không đúng!';
+        $error[] = 'Wrong email or password!';
     }
 }
 if (isset($error)) {
