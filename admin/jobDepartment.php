@@ -1,3 +1,9 @@
+<?php
+@include '../connection/connect.php';
+$select = "SELECT * FROM job_department";
+$result = mysqli_query($con, $select);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,6 +30,38 @@
                     Job Department
                 </h1>
             </div>
+            <table class="table table-inverse">
+            <thead>
+                <tr>
+                    <th>Job ID</th>
+                    <th>Job Dept</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Salary Range</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if ($result) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $job_ID = $row['job_ID'];
+                        $job_dept = $row['job_dept'];
+                        $name = $row['name'];
+                        $description = $row['description'];
+                        $salary_range = $row['salary_range'];
+                        
+                        echo '<tr>
+                            <td>'.$job_ID.' </td>
+                            <td>'.$job_dept.' </td>
+                            <td>'.$name.' </td>
+                            <td>'.$description.' </td>
+                            <td>'.$salary_range.' </td>
+                        </tr>';
+                    }
+                }
+                ?>
+            </tbody>
+            </table>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
