@@ -21,7 +21,7 @@
         <div class="main p-3">
             <div class="text-center">
                 <h1>
-                    Job Department
+                    Salary Bonus
                 </h1>
             </div>
         </div>

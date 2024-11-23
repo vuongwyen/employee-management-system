@@ -21,7 +21,7 @@
         <div class="main p-3">
             <div class="text-center">
                 <h1>
-                    Job Department
+                    Pay Roll
                 </h1>
             </div>
         </div>

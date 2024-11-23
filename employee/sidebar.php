@@ -9,18 +9,24 @@
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
-                    <a href="employee.php" class="sidebar-link">
-                        <i class="lni lni-user"></i>
-                        <span>Employee</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
                     <a href="jobDepartment.php" class="sidebar-link">
                         <i class="lni lni-agenda"></i>
                         <span>Job Department</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
+                    <a href="payRoll.php" class="sidebar-link">
+                        <i class="bi bi-cash"></i>
+                        <span>Pay Roll</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="salaryBonus.php" class="sidebar-link">
+                        <i class="bi bi-coin"></i>
+                        <span>Salary Bonus</span>
+                    </a>
+                </li>
+                <!-- <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                         data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
                         <i class="lni lni-protection"></i>
@@ -69,7 +75,7 @@
                         <i class="lni lni-cog"></i>
                         <span>Setting</span>
                     </a>
-                </li>
+                </li> -->
             </ul>
             <div class="sidebar-footer">
                 <a href="../logout.php" class="sidebar-link">
