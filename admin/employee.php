@@ -29,6 +29,17 @@ $result = mysqli_query($con, $select);
                     Employee
                 </h1>
             </div>
+            <div class="row mb-3">
+                <div class="col-sm">
+                    <input type="text" name="search_keyword" class="form-control" placeholder="Search by FullName" value="<?php echo isset($search_keyword) ? $search_keyword : ''; ?>">
+                </div>
+                <div class="col-sm">
+                    <button type="submit" name="search" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+            <button class="btn btn-primary">
+                <a href="operation/employee/create.php" class="text-light">Add employee</a>
+            </button>
             <table class="table table-inverse">
             <thead>
                 <tr>
@@ -40,6 +51,7 @@ $result = mysqli_query($con, $select);
                     <th>Contact Address</th>
                     <th>Email</th>
                     <th>Password</th>
+                    <th>Operation</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,6 +75,10 @@ $result = mysqli_query($con, $select);
                             <td>'.$contact_add.' </td>
                             <td>'.$emp_email.' </td>
                             <td>'.$emp_pass.' </td>
+                            <td>
+                                <button class="btn btn-success"><a href="operation/employee/update.php?updateemp_ID='.$emp_ID.'" class="text-light">Update</a></button>
+                                <button class="btn btn-danger"><a href="operation/employee/delete.php?deleteemp_ID='.$emp_ID.'" class="text-light">Delete</a></button>
+                            </td>
                         </tr>';
                     }
                 }
