@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 22, 2024 lúc 04:25 PM
+-- Thời gian đã tạo: Th10 23, 2024 lúc 05:02 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -38,6 +38,18 @@ CREATE TABLE `employee` (
   `emp_pass` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `employee`
+--
+
+INSERT INTO `employee` (`emp_ID`, `fname`, `lname`, `gender`, `age`, `contact_add`, `emp_email`, `emp_pass`) VALUES
+(1, 'Banh', 'Da Cua', 'Male', 22, 113, 'banhdacua@gmail.com', '12345'),
+(2, 'An', 'Tey', 'Female', 27, 113, 'antey@gmail.com', '12345'),
+(3, 'Nguyen', 'Van A', 'Male', 30, 123, 'nguyenvana@gmail.com', '12345'),
+(4, 'Tran', 'Thi B', 'Female', 25, 456, 'tranthib@gmail.com', '12345'),
+(5, 'Le', 'Hoang C', 'Male', 28, 789, 'lehoangc@gmail.com', '12345'),
+(6, 'Pham', 'Thi D', 'Female', 32, 321, 'phamthid@gmail.com', '12345');
+
 -- --------------------------------------------------------
 
 --
@@ -51,6 +63,16 @@ CREATE TABLE `job_department` (
   `description` varchar(30) DEFAULT NULL,
   `salary_range` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `job_department`
+--
+
+INSERT INTO `job_department` (`job_ID`, `job_dept`, `name`, `description`, `salary_range`) VALUES
+(1, 'IT', 'Software Developer', 'Develop and maintain software ', '5000-7000'),
+(2, 'HR', 'HR Manager', 'Manage HR-related tasks and te', '4000-6000'),
+(3, 'Finance', 'Accountant', 'Handle company financial recor', '4500-6500'),
+(4, 'Marketing', 'Digital Marketer', 'Create and execute digital mar', '4000-5500');
 
 -- --------------------------------------------------------
 
@@ -69,6 +91,16 @@ CREATE TABLE `payroll` (
   `total_amount` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `payroll`
+--
+
+INSERT INTO `payroll` (`payroll_ID`, `emp_ID`, `job_ID`, `salary_ID`, `leave_ID`, `date`, `report`, `total_amount`) VALUES
+(1, 3, 1, 1, NULL, '2024-10-01', 'Monthly salary', 6500),
+(2, 4, 2, 2, NULL, '2024-10-01', 'Monthly salary', 5000),
+(3, 5, 3, 3, NULL, '2024-10-01', 'Monthly salary', 5500),
+(4, 6, 4, 4, NULL, '2024-10-01', 'Monthly salary', 4800);
+
 -- --------------------------------------------------------
 
 --
@@ -83,6 +115,16 @@ CREATE TABLE `qualification` (
   `date_in` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `qualification`
+--
+
+INSERT INTO `qualification` (`qual_ID`, `emp_ID`, `position`, `requirements`, `date_in`) VALUES
+(1, 3, 'Senior Developer', '5 years experience, Python, Ja', '2020-01-01'),
+(2, 4, 'HR Assistant', '2 years experience, communicat', '2021-06-15'),
+(3, 5, 'Financial Analyst', '3 years experience, Excel, SAP', '2022-03-10'),
+(4, 6, 'SEO Specialist', '2 years experience, Google Ana', '2023-05-20');
+
 -- --------------------------------------------------------
 
 --
@@ -96,6 +138,16 @@ CREATE TABLE `salary_bonus` (
   `annual` date DEFAULT NULL,
   `bonus` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `salary_bonus`
+--
+
+INSERT INTO `salary_bonus` (`salary_ID`, `job_ID`, `amount`, `annual`, `bonus`) VALUES
+(1, 1, 6500, '2024-12-31', '2024-11-15'),
+(2, 2, 5000, '2024-12-31', '2024-11-15'),
+(3, 3, 5500, '2024-12-31', '2024-11-15'),
+(4, 4, 4800, '2024-12-31', '2024-11-15');
 
 -- --------------------------------------------------------
 
@@ -174,31 +226,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `emp_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `emp_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `job_department`
 --
 ALTER TABLE `job_department`
-  MODIFY `job_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `job_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `payroll`
 --
 ALTER TABLE `payroll`
-  MODIFY `payroll_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `payroll_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `qualification`
 --
 ALTER TABLE `qualification`
-  MODIFY `qual_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `qual_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `salary_bonus`
 --
 ALTER TABLE `salary_bonus`
-  MODIFY `salary_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `salary_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
