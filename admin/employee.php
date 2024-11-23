@@ -1,6 +1,10 @@
 <?php
 @include '../connection/connect.php';
 $select = "SELECT * FROM employee";
+if (isset($_POST['search'])) {
+    $search_keyword = mysqli_real_escape_string($con, $_POST['search_keyword']);
+    $select .= " WHERE lname LIKE '%$search_keyword%'";
+}
 $result = mysqli_query($con, $select);
 ?>
 <!DOCTYPE html>
@@ -24,19 +28,22 @@ $result = mysqli_query($con, $select);
         <?php include 'sidebar.php'; ?>
         <!-- Main content -->
         <div class="main p-3">
-            <div class="text-center">
+            <div class="text-center mb-5">
                 <h1>
                     Employee
                 </h1>
             </div>
-            <div class="row mb-3">
-                <div class="col-sm">
-                    <input type="text" name="search_keyword" class="form-control" placeholder="Search by FullName" value="<?php echo isset($search_keyword) ? $search_keyword : ''; ?>">
+            <form method="post">
+                <div class="row mb-3">
+                    <div class="col-sm">
+                        <input type="text" name="search_keyword" class="form-control" placeholder="Search by FullName" value="<?php echo isset($search_keyword) ? $search_keyword : ''; ?>">
+                    </div>
+                    <div class="col-sm">
+                        <button type="submit" name="search" class="btn btn-primary">Search</button>
+                    </div>
                 </div>
-                <div class="col-sm">
-                    <button type="submit" name="search" class="btn btn-primary">Search</button>
-                </div>
-            </div>
+            </form>
+
             <button class="btn btn-primary">
                 <a href="operation/employee/create.php" class="text-light">Add employee</a>
             </button>
