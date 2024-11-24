@@ -2,16 +2,19 @@
 @include '../connection/connect.php';
 session_start();
 $emp_ID = $_SESSION['emp_ID'];
-$select = "SELECT * FROM employee where emp_ID = '$emp_ID'";
+$select = "SELECT * FROM vemployeedetails where emp_ID = '$emp_ID'";
 $result = mysqli_query($con, $select);
 if($row = mysqli_fetch_assoc($result)){
     $emp_ID = $row['emp_ID'];
-    $fname = $row['fname'];
-    $lname = $row['lname'];
+    $first_name = $row['first_name'];
+    $last_name = $row['last_name'];
     $gender = $row['gender'];
     $age = $row['age'];
-    $contact_add = $row['contact_add'];
-    $emp_email = $row['emp_email'];
+    $contact_address = $row['contact_address'];
+    $email = $row['email'];
+    $position = $row['position'];
+    $requirements = $row['requirements'];
+    $qualification_date = $row['qualification_date'];
 }
 ?>
 <!DOCTYPE html>
@@ -37,7 +40,7 @@ if($row = mysqli_fetch_assoc($result)){
         <div class="main p-3">
             <div class="text-center">
                 <h1>
-                    Hello <?php echo htmlspecialchars($fname) . ' ' . htmlspecialchars($lname); ?>!
+                    Hello <?php echo htmlspecialchars($first_name) . ' ' . htmlspecialchars($last_name); ?>!
                 </h1>
             </div>
             <table class="table table-inverse">
@@ -50,16 +53,22 @@ if($row = mysqli_fetch_assoc($result)){
                     <th>Age</th>
                     <th>Contact Address</th>
                     <th>Email</th>
+                    <th>Position</th>
+                    <th>Experience</th>
+                    <th>Qualification date</th>
                 </tr>
             </thead>
             <tbody>
                 <td><?php echo $emp_ID ?></td>
-                <td><?php echo $fname ?></td>
-                <td><?php echo $lname ?></td>
+                <td><?php echo $first_name ?></td>
+                <td><?php echo $last_name ?></td>
                 <td><?php echo $gender ?></td>
                 <td><?php echo $age ?></td>
-                <td><?php echo $contact_add ?></td>
-                <td><?php echo $emp_email ?></td>
+                <td><?php echo $contact_address ?></td>
+                <td><?php echo $email ?></td>
+                <td><?php echo $position ?></td>
+                <td><?php echo $requirements ?></td>
+                <td><?php echo $qualification_date ?></td>
             </tbody>
             </table>
         </div>
