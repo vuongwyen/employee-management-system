@@ -6,10 +6,10 @@ if (!$con) {
 }
 
 
-$emp_ID = $_GET['updateemp_ID'];
+$job_ID = $_GET['updatejob_ID'];
 
 
-$sql = "SELECT * FROM employee WHERE emp_ID = $emp_ID";
+$sql = "SELECT * FROM job_department WHERE job_ID = $job_ID";
 $query = mysqli_query($con, $sql);
 
 if (!$query) {
@@ -18,36 +18,24 @@ if (!$query) {
 
 
 $row = mysqli_fetch_assoc($query);
-$fname = $row['fname'];
-$lname = $row['lname'];
-$gender = $row['gender'];
-$age = $row['age'];
-$contact_add = $row['contact_add'];
-$emp_email = $row['emp_email'];
-$emp_pass = $row['emp_pass'];
+$job_dept = $row['job_dept'];
+$name = $row['name'];
+$description = $row['description'];
+$salary_range = $row['salary_range'];
 
 if (isset($_POST['submit'])) {
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $gender = $_POST['gender'];
-    $age = $_POST['age'];
-    $contact_add = $_POST['contact_add'];
-    $emp_email = $_POST['emp_email'];
-    $emp_pass = $_POST['emp_pass'];
+    $job_dept = $_POST['job_dept'];
+    $name = $_POST['name'];
+    $description = $_POST['description'];
+    $salary_range = $_POST['salary_range'];
 
-    $sql = "UPDATE employee 
-            SET fname = '$fname', 
-                lname = '$lname', 
-                gender = '$gender', 
-                age = $age, 
-                contact_add = $contact_add, 
-                emp_email = '$emp_email', 
-                emp_pass = '$emp_pass' 
-            WHERE emp_ID = $emp_ID";
-    $result = mysqli_query($con, $sql);
+    $sql = "UPDATE job_department 
+            SET job_dept = '$job_dept', name = '$name', description = '$description', salary_range = '$salary_range' 
+            WHERE job_ID = $job_ID";
+    $query = mysqli_query($con, $sql);
 
-    if ($result) {
-        header("Location: ../../../admin/employee.php");
+    if ($query) {
+        header("Location: ../../../admin/jobDepartment.php");
     } else {
         die("Update failed: " . mysqli_error($con));
     }
@@ -64,40 +52,26 @@ if (isset($_POST['submit'])) {
 </head>
 <body>
     <div class="container my-5">
+        <h2 class="text-center">Update Job Department</h2>
         <form method="POST" action="">
             <div class="form-group">
-                <label class="form-label">First Name</label>
-                <input type="text" class="form-control" name="fname" value="<?php echo $fname ?>" required>
+                <label class="form-label">Job Department</label>
+                <input type="text" class="form-control" name="job_dept" value="<?php echo $job_dept ?>" required>
             </div>
             <div class="form-group">
-                <label class="form-label">Last Name</label>
-                <input type="text" class="form-control" name="lname" value="<?php echo $lname ?>" required>
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" name="name" value="<?php echo $name ?>" required>
             </div>
             <div class="form-group">
-                <label class="form-label">Gender</label>
-                <select class="form-control" name="gender">
-                    <option value="Male" <?php if ($gender == 'Male') echo 'selected'; ?>>Male</option>
-                    <option value="Female" <?php if ($gender == 'Female') echo 'selected'; ?>>Female</option>
-                </select>
+                <label class="form-label">Description</label>
+                <textarea class="form-control" name="description" rows="3" required><?php echo $description ?></textarea>
             </div>
             <div class="form-group">
-                <label class="form-label">Age</label>
-                <input type="number" class="form-control" name="age" value="<?php echo $age ?>" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Contact Address</label>
-                <input type="text" class="form-control" name="contact_add" value="<?php echo $contact_add ?>" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-control" name="emp_email" value="<?php echo $emp_email ?>" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Password</label>
-                <input type="text" class="form-control" name="emp_pass" value="<?php echo $emp_pass ?>" required>
+                <label class="form-label">Salary Range</label>
+                <input type="text" class="form-control" name="salary_range" value="<?php echo $salary_range ?>" required>
             </div>
             <br>
-            <button type="submit" name="submit" class="btn btn-primary">Update</button>
+            <button type="submit" name="submit" class="btn btn-primary">Update Job Department</button>
         </form>
     </div>
 </body>

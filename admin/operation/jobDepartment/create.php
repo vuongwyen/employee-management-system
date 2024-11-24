@@ -5,21 +5,19 @@ if (!$con) {
 }
 
 if (isset($_POST['submit'])) {
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $gender = $_POST['gender'];
-    $age = $_POST['age'];
-    $contact_add = $_POST['contact_add'];
-    $emp_email = $_POST['emp_email'];
-    $emp_pass = $_POST['emp_pass'];
+    $job_ID = $_POST['job_ID'];
+    $job_dept = $_POST['job_dept'];
+    $name = $_POST['name'];
+    $description = $_POST['description'];
+    $salary_range = $_POST['salary_range'];
 
-    $sql = "INSERT INTO employee (fname, lname, gender, age, contact_add, emp_email, emp_pass) 
-            VALUES ('$fname', '$lname', '$gender', '$age', '$contact_add', '$emp_email', '$emp_pass')";
+    $sql = "INSERT INTO job_department (job_ID, job_dept, name, description, salary_range) 
+            VALUES ('$job_ID', '$job_dept', '$name', '$description', '$salary_range')";
     $query = mysqli_query($con, $sql);
 
     if ($query) {
-        echo "<script>alert('Employee added successfully');</script>";
-        header("Location: ../../../admin/employee.php");
+        echo "<script>alert('Job Department added successfully');</script>";
+        header("Location: ../../../admin/jobDepartment.php");
         exit();
     } else {
         echo "Error: " . mysqli_error($con);
@@ -32,46 +30,30 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Add Employee</title>
+    <title>Add Job Department</title>
 </head>
 <body>
     <div class="container my-5">
-        <h2 class="text-right">Add New Employee</h2>
+        <h2 class="text-right">Add New Job Department</h2>
         <form method="POST" action="">
             <div class="form-group">
-                <label class="form-label">First Name</label>
-                <input type="text" class="form-control" name="fname" placeholder="Enter First Name" autocomplete="off" required>
+                <label class="form-label">Job Department</label>
+                <input type="text" class="form-control" name="job_dept" placeholder="Enter Job Department" required>
             </div>
             <div class="form-group">
-                <label class="form-label">Last Name</label>
-                <input type="text" class="form-control" name="lname" placeholder="Enter Last Name" autocomplete="off" required>
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" name="name" placeholder="Enter Name" required>
             </div>
             <div class="form-group">
-                <label class="form-label">Gender</label>
-                <select class="form-control" name="gender" required>
-                    <option value="" disabled selected>Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
+                <label class="form-label">Description</label>
+                <textarea class="form-control" name="description" placeholder="Enter Description" rows="3" required></textarea>
             </div>
             <div class="form-group">
-                <label class="form-label">Age</label>
-                <input type="number" class="form-control" name="age" placeholder="Enter Age" autocomplete="off" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Contact Address</label>
-                <input type="text" class="form-control" name="contact_add" placeholder="Enter Contact Address" autocomplete="off" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-control" name="emp_email" placeholder="Enter Email" autocomplete="off" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Password</label>
-                <input type="text" class="form-control" name="emp_pass" placeholder="Enter Password" autocomplete="off" required>
+                <label class="form-label">Salary Range</label>
+                <input type="text" class="form-control" name="salary_range" placeholder="Enter Salary Range" required>
             </div>
             <br>
-            <button type="submit" name="submit" class="btn btn-primary">Add Employee</button>
+            <button type="submit" name="submit" class="btn btn-primary">Add Job Department</button>
         </form>
     </div>
 </body>

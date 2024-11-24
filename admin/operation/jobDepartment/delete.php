@@ -3,12 +3,12 @@ include '../../../connection/connect.php';
 if(!$con){
     die(mysqli_errno($con));
 }
-if(isset($_GET['deleteemp_ID'])){
-    $emp_ID=$_GET['deleteemp_ID'];
-    $sql="DELETE FROM employee WHERE emp_ID='$emp_ID'";
+if(isset($_GET['deletejob_ID'])){
+    $emp_ID=$_GET['deletejob_ID'];
+    $sql="DELETE FROM job_department WHERE deletejob_ID='$job_ID'";
     $result=mysqli_query($con,$sql);
     if($result){
-        header("Location:../../../admin/employee.php");
+        header("Location:../../../admin/jobDepartment.php");
     }else{
         die(mysqli_errno($con));
     }

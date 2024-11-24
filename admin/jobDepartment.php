@@ -1,6 +1,10 @@
 <?php
 @include '../connection/connect.php';
 $select = "SELECT * FROM job_department";
+if (isset($_POST['search'])) {
+    $search_keyword = mysqli_real_escape_string($con, $_POST['search_keyword']);
+    $select .= " WHERE job_dept LIKE '%$search_keyword%'";
+}
 $result = mysqli_query($con, $select);
 ?>
 
@@ -30,6 +34,19 @@ $result = mysqli_query($con, $select);
                     Job Department
                 </h1>
             </div>
+            <form method="post">
+                <div class="row mb-3">
+                    <div class="col-sm">
+                        <input type="text" name="search_keyword" class="form-control" placeholder="Search by FullName" value="<?php echo isset($search_keyword) ? $search_keyword : ''; ?>">
+                    </div>
+                    <div class="col-sm">
+                        <button type="submit" name="search" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+            </form>
+            <button class="btn btn-primary">
+                <a href="operation/jobDepartment/create.php" class="text-light">Add job department</a>
+            </button>
             <table class="table table-inverse">
             <thead>
                 <tr>
@@ -38,6 +55,7 @@ $result = mysqli_query($con, $select);
                     <th>Name</th>
                     <th>Description</th>
                     <th>Salary Range</th>
+                    <th>Operation</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,6 +74,10 @@ $result = mysqli_query($con, $select);
                             <td>'.$name.' </td>
                             <td>'.$description.' </td>
                             <td>'.$salary_range.' </td>
+                            <td>
+                                <button class="btn btn-success"><a href="operation/jobDepartment/update.php?updatejob_ID='.$job_ID.'" class="text-light">Update</a></button>
+                                <button class="btn btn-danger"><a href="operation/jobDepartment/delete.php?deletejob_ID='.$job_ID.'" class="text-light">Delete</a></button>
+                            </td>
                         </tr>';
                     }
                 }

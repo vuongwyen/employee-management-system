@@ -43,7 +43,6 @@ $result = mysqli_query($con, $select);
                     </div>
                 </div>
             </form>
-
             <button class="btn btn-primary">
                 <a href="operation/employee/create.php" class="text-light">Add employee</a>
             </button>
