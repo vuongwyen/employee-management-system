@@ -1,13 +1,12 @@
 <?php
 @include '../connection/connect.php';
-$select = "SELECT * FROM job_department";
+$select = "SELECT * FROM qualification";
 if (isset($_POST['search'])) {
     $search_keyword = mysqli_real_escape_string($con, $_POST['search_keyword']);
-    $select .= " WHERE job_dept LIKE '%$search_keyword%'";
+    $select .= " WHERE position LIKE '%$search_keyword%'";
 }
 $result = mysqli_query($con, $select);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,15 +28,15 @@ $result = mysqli_query($con, $select);
         <?php include 'sidebar.php'; ?>
         <!-- Main content -->
         <div class="main p-3">
-            <div class="text-center">
+            <div class="text-center mb-5">
                 <h1>
-                    Job Department
+                    Qualification
                 </h1>
             </div>
             <form method="post">
                 <div class="row mb-3">
                     <div class="col-sm">
-                        <input type="text" name="search_keyword" class="form-control" placeholder="Search by Name" value="<?php echo isset($search_keyword) ? $search_keyword : ''; ?>">
+                        <input type="text" name="search_keyword" class="form-control" placeholder="Search by position" value="<?php echo isset($search_keyword) ? $search_keyword : ''; ?>">
                     </div>
                     <div class="col-sm">
                         <button type="submit" name="search" class="btn btn-primary">Search</button>
@@ -45,16 +44,16 @@ $result = mysqli_query($con, $select);
                 </div>
             </form>
             <button class="btn btn-primary">
-                <a href="operation/jobDepartment/create.php" class="text-light">Add job department</a>
+                <a href="operation/qualification/create.php" class="text-light">Add qualification</a>
             </button>
             <table class="table table-inverse">
             <thead>
                 <tr>
-                    <th>Job ID</th>
-                    <th>Job Dept</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Salary Range</th>
+                    <th>Qualification ID</th>
+                    <th>Employee ID</th>
+                    <th>Position</th>
+                    <th>Requirements</th>
+                    <th>Date in</th>
                     <th>Operation</th>
                 </tr>
             </thead>
@@ -62,21 +61,20 @@ $result = mysqli_query($con, $select);
                 <?php
                 if ($result) {
                     while ($row = mysqli_fetch_assoc($result)) {
-                        $job_ID = $row['job_ID'];
-                        $job_dept = $row['job_dept'];
-                        $name = $row['name'];
-                        $description = $row['description'];
-                        $salary_range = $row['salary_range'];
-                        
+                        $qual_ID = $row['qual_ID'];
+                        $emp_ID = $row['emp_ID'];
+                        $position = $row['position'];
+                        $requirements = $row['requirements'];
+                        $date_in = $row['date_in'];
                         echo '<tr>
-                            <td>'.$job_ID.' </td>
-                            <td>'.$job_dept.' </td>
-                            <td>'.$name.' </td>
-                            <td>'.$description.' </td>
-                            <td>'.$salary_range.' </td>
+                            <td>'.$qual_ID.' </td>
+                            <td>'.$emp_ID.' </td>
+                            <td>'.$position.' </td>
+                            <td>'.$requirements.' </td>
+                            <td>'.$date_in.' </td>
                             <td>
-                                <button class="btn btn-success"><a href="operation/jobDepartment/update.php?updatejob_ID='.$job_ID.'" class="text-light">Update</a></button>
-                                <button class="btn btn-danger"><a href="operation/jobDepartment/delete.php?deletejob_ID='.$job_ID.'" class="text-light">Delete</a></button>
+                                <button class="btn btn-success"><a href="operation/qualification/update.php?updatequal_ID='.$qual_ID.'" class="text-light">Update</a></button>
+                                <button class="btn btn-danger"><a href="operation/qualification/delete.php?deletequal_ID='.$qual_ID.'" class="text-light">Delete</a></button>
                             </td>
                         </tr>';
                     }

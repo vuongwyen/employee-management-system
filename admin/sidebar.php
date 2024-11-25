@@ -27,6 +27,12 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
+                    <a href="qualification.php" class="sidebar-link">
+                        <i class="bi bi-card-text"></i>
+                        <span>Qualification</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a href="salaryBonus.php" class="sidebar-link">
                         <i class="bi bi-coin"></i>
                         <span>Salary Bonus</span>

@@ -5,51 +5,39 @@ if (!$con) {
     die("Connection error: " . mysqli_connect_error());
 }
 
+$payroll_ID = $_GET['updatepayroll_ID'];
+$sql = "SELECT * FROM payroll WHERE payroll_ID = $payroll_ID";
+$result = mysqli_query($con, $sql);
+$row = mysqli_fetch_assoc($result);
 
-$emp_ID = $_GET['updateemp_ID'];
-
-
-$sql = "SELECT * FROM employee WHERE emp_ID = $emp_ID";
-$query = mysqli_query($con, $sql);
-
-if (!$query) {
-    die("Query failed: " . mysqli_error($con));
-}
-
-
-$row = mysqli_fetch_assoc($query);
-$fname = $row['fname'];
-$lname = $row['lname'];
-$gender = $row['gender'];
-$age = $row['age'];
-$contact_add = $row['contact_add'];
-$emp_email = $row['emp_email'];
-$emp_pass = $row['emp_pass'];
+$emp_ID = $row['emp_ID'];
+$job_ID = $row['job_ID'];
+$salary_ID = $row['salary_ID'];
+$leave_ID = $row['leave_ID'];
+$date = $row['date'];
+$report = $row['report'];
+$total_amount = $row['total_amount'];
 
 if (isset($_POST['submit'])) {
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $gender = $_POST['gender'];
-    $age = $_POST['age'];
-    $contact_add = $_POST['contact_add'];
-    $emp_email = $_POST['emp_email'];
-    $emp_pass = $_POST['emp_pass'];
+    $emp_ID = $_POST['emp_ID'];
+    $job_ID = $_POST['job_ID'];
+    $salary_ID = $_POST['salary_ID'];
+    $leave_ID = $_POST['leave_ID'];
+    $date = $_POST['date'];
+    $report = $_POST['report'];
+    $total_amount = $_POST['total_amount'];
 
-    $sql = "UPDATE employee 
-            SET fname = '$fname', 
-                lname = '$lname', 
-                gender = '$gender', 
-                age = $age, 
-                contact_add = $contact_add, 
-                emp_email = '$emp_email', 
-                emp_pass = '$emp_pass' 
-            WHERE emp_ID = $emp_ID";
+    $sql = "UPDATE payroll 
+            SET emp_ID='$emp_ID', job_ID='$job_ID', salary_ID='$salary_ID', 
+                leave_ID='$leave_ID', date='$date', report='$report', total_amount='$total_amount' 
+            WHERE payroll_ID = $payroll_ID";
+
     $result = mysqli_query($con, $sql);
-
     if ($result) {
-        header("Location: ../../../admin/employee.php");
+        echo "<script>alert('Payroll updated successfully');</script>";
+        header("Location: ../../../admin/payRoll.php");
     } else {
-        die("Update failed: " . mysqli_error($con));
+        die(mysqli_error($con));
     }
 }
 ?>
@@ -60,43 +48,40 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <title>Update Employee</title>
+    <title>Update Payroll</title>
 </head>
 <body>
     <div class="container my-5">
-        <form method="POST" action="">
-            <div class="form-group">
-                <label class="form-label">First Name</label>
-                <input type="text" class="form-control" name="fname" value="<?php echo $fname ?>" required>
+        <h3>Update Payroll</h3>
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Employee ID</label>
+                <input type="text" class="form-control" name="emp_ID" value="<?php echo $emp_ID; ?>" required>
             </div>
-            <div class="form-group">
-                <label class="form-label">Last Name</label>
-                <input type="text" class="form-control" name="lname" value="<?php echo $lname ?>" required>
+            <div class="mb-3">
+                <label class="form-label">Job ID</label>
+                <input type="text" class="form-control" name="job_ID" value="<?php echo $job_ID; ?>" required>
             </div>
-            <div class="form-group">
-                <label class="form-label">Gender</label>
-                <select class="form-control" name="gender">
-                    <option value="Male" <?php if ($gender == 'Male') echo 'selected'; ?>>Male</option>
-                    <option value="Female" <?php if ($gender == 'Female') echo 'selected'; ?>>Female</option>
-                </select>
+            <div class="mb-3">
+                <label class="form-label">Salary ID</label>
+                <input type="text" class="form-control" name="salary_ID" value="<?php echo $salary_ID; ?>" required>
             </div>
-            <div class="form-group">
-                <label class="form-label">Age</label>
-                <input type="number" class="form-control" name="age" value="<?php echo $age ?>" required>
+            <div class="mb-3">
+                <label class="form-label">Leave ID</label>
+                <input type="text" class="form-control" name="leave_ID" value="<?php echo $leave_ID; ?>">
             </div>
-            <div class="form-group">
-                <label class="form-label">Contact Address</label>
-                <input type="text" class="form-control" name="contact_add" value="<?php echo $contact_add ?>" required>
+            <div class="mb-3">
+                <label class="form-label">Date</label>
+                <input type="date" class="form-control" name="date" value="<?php echo $date; ?>" required>
             </div>
-            <div class="form-group">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-control" name="emp_email" value="<?php echo $emp_email ?>" required>
+            <div class="mb-3">
+                <label class="form-label">Report</label>
+                <textarea class="form-control" name="report"><?php echo $report; ?></textarea>
             </div>
-            <div class="form-group">
-                <label class="form-label">Password</label>
-                <input type="text" class="form-control" name="emp_pass" value="<?php echo $emp_pass ?>" required>
+            <div class="mb-3">
+                <label class="form-label">Total Amount</label>
+                <input type="number" class="form-control" name="total_amount" value="<?php echo $total_amount; ?>" required>
             </div>
-            <br>
             <button type="submit" name="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
