@@ -30,6 +30,8 @@ if($row = mysqli_fetch_assoc($result)){
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style/style.css">
+    
+    
 </head>
 
 <body>
@@ -38,39 +40,68 @@ if($row = mysqli_fetch_assoc($result)){
         <?php include 'sidebar.php'; ?>
         <!-- Main content -->
         <div class="main p-3">
-            <div class="text-center">
-                <h1>
-                    Hello <?php echo htmlspecialchars($first_name) . ' ' . htmlspecialchars($last_name); ?>!
-                </h1>
+        <div class="container my-5">
+        <!-- Profile Section -->
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <img src="https://eurekapuzzles.com/cdn/shop/files/57431.png?v=1712509014" class="rounded-circle mb-3 avatar-employee" alt="Profile Picture" style="max-width: 100px; height: auto; margin: 0px; width: auto;">
+                <h4><?php echo htmlspecialchars($first_name) . " " . htmlspecialchars($last_name); ?></h4>
+                <p class="text-muted"><?php echo $position ?></p>
             </div>
-            <table class="table table-inverse">
-            <thead>
-                <tr>
-                    <th>Employee ID</th>
-                    <th>First name</th>
-                    <th>Last name</th>
-                    <th>Gender</th>
-                    <th>Age</th>
-                    <th>Contact Address</th>
-                    <th>Email</th>
-                    <th>Position</th>
-                    <th>Experience</th>
-                    <th>Qualification date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <td><?php echo $emp_ID ?></td>
-                <td><?php echo $first_name ?></td>
-                <td><?php echo $last_name ?></td>
-                <td><?php echo $gender ?></td>
-                <td><?php echo $age ?></td>
-                <td><?php echo $contact_address ?></td>
-                <td><?php echo $email ?></td>
-                <td><?php echo $position ?></td>
-                <td><?php echo $requirements ?></td>
-                <td><?php echo $qualification_date ?></td>
-            </tbody>
-            </table>
+        </div>
+
+        <!-- Personal Information -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Personal Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <strong> First Name:</strong>
+                        <p> <?php echo $first_name ?></p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>Last Name:</strong>
+                        <p> <?php echo $last_name ?></p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>Email Address:</strong>
+                        <p> <?php echo $email ?></p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>Phone:</strong>
+                        <p> <?php echo $contact_address ?></p>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Address -->
+        <div class="card">
+            <div class="card-header">
+                <h5>Profession</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <strong>Position</strong>
+                        <p><?php echo $position ?> </p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>required</strong>
+                        <p><?php  echo $requirements ?></p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>Time:</strong>
+                        <p> <?php echo $qualification_date ?></p>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
