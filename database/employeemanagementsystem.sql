@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 23, 2024 lúc 05:02 AM
+-- Thời gian đã tạo: Th10 25, 2024 lúc 03:35 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -43,12 +43,13 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`emp_ID`, `fname`, `lname`, `gender`, `age`, `contact_add`, `emp_email`, `emp_pass`) VALUES
-(1, 'Banh', 'Da Cua', 'Male', 22, 113, 'banhdacua@gmail.com', '12345'),
+(1, 'Banh', 'Da Cu', 'Male', 22, 113, 'banhdacua@gmail.com', '12345'),
 (2, 'An', 'Tey', 'Female', 27, 113, 'antey@gmail.com', '12345'),
 (3, 'Nguyen', 'Van A', 'Male', 30, 123, 'nguyenvana@gmail.com', '12345'),
 (4, 'Tran', 'Thi B', 'Female', 25, 456, 'tranthib@gmail.com', '12345'),
 (5, 'Le', 'Hoang C', 'Male', 28, 789, 'lehoangc@gmail.com', '12345'),
-(6, 'Pham', 'Thi D', 'Female', 32, 321, 'phamthid@gmail.com', '12345');
+(6, 'Pham', 'Thi D', 'Female', 32, 321, 'phamthid@gmail.com', '12345'),
+(8, 'Tong', 'Na', 'Female', 22, 15322, 'natong@gmail.com', '12345');
 
 -- --------------------------------------------------------
 
@@ -69,10 +70,11 @@ CREATE TABLE `job_department` (
 --
 
 INSERT INTO `job_department` (`job_ID`, `job_dept`, `name`, `description`, `salary_range`) VALUES
-(1, 'IT', 'Software Developer', 'Develop and maintain software ', '5000-7000'),
+(1, 'IT', 'Software Developer', 'Develop and maintain software ', '6000-7000'),
 (2, 'HR', 'HR Manager', 'Manage HR-related tasks and te', '4000-6000'),
 (3, 'Finance', 'Accountant', 'Handle company financial recor', '4500-6500'),
-(4, 'Marketing', 'Digital Marketer', 'Create and execute digital mar', '4000-5500');
+(4, 'Marketing', 'Digital Marketer', 'Create and execute digital mar', '4000-5500'),
+(5, 'IT', 'Software Engineer', ' Software Engineer is a skille', '9000-10000');
 
 -- --------------------------------------------------------
 
@@ -123,7 +125,8 @@ INSERT INTO `qualification` (`qual_ID`, `emp_ID`, `position`, `requirements`, `d
 (1, 3, 'Senior Developer', '5 years experience, Python, Ja', '2020-01-01'),
 (2, 4, 'HR Assistant', '2 years experience, communicat', '2021-06-15'),
 (3, 5, 'Financial Analyst', '3 years experience, Excel, SAP', '2022-03-10'),
-(4, 6, 'SEO Specialist', '2 years experience, Google Ana', '2023-05-20');
+(4, 6, 'SEO Specialist', '2 years experience, Google Ana', '2023-05-20'),
+(5, 1, 'Software Engineer', '10 years experience,C#,.NET', '2024-10-10');
 
 -- --------------------------------------------------------
 
@@ -172,6 +175,34 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`admin_ID`, `fname`, `lname`, `gender`, `age`, `contact_add`, `admin_email`, `admin_pass`) VALUES
 (1, 'Banh', 'Da Cua', 'Male', 22, 113, 'banhdacua@gmail.com', '12345');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc đóng vai cho view `vemployeedetails`
+-- (See below for the actual view)
+--
+CREATE TABLE `vemployeedetails` (
+`emp_ID` int(11)
+,`first_name` varchar(255)
+,`last_name` varchar(255)
+,`gender` varchar(11)
+,`age` int(11)
+,`contact_address` int(11)
+,`email` varchar(255)
+,`position` varchar(30)
+,`requirements` varchar(30)
+,`qualification_date` date
+);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc cho view `vemployeedetails`
+--
+DROP TABLE IF EXISTS `vemployeedetails`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vemployeedetails`  AS SELECT `e`.`emp_ID` AS `emp_ID`, `e`.`fname` AS `first_name`, `e`.`lname` AS `last_name`, `e`.`gender` AS `gender`, `e`.`age` AS `age`, `e`.`contact_add` AS `contact_address`, `e`.`emp_email` AS `email`, `q`.`position` AS `position`, `q`.`requirements` AS `requirements`, `q`.`date_in` AS `qualification_date` FROM (`employee` `e` left join `qualification` `q` on(`e`.`emp_ID` = `q`.`emp_ID`)) ;
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -226,25 +257,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `emp_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `emp_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `job_department`
 --
 ALTER TABLE `job_department`
-  MODIFY `job_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `job_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `payroll`
 --
 ALTER TABLE `payroll`
-  MODIFY `payroll_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `payroll_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `qualification`
 --
 ALTER TABLE `qualification`
-  MODIFY `qual_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `qual_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `salary_bonus`
