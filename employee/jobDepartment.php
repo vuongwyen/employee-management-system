@@ -2,16 +2,19 @@
 @include '../connection/connect.php';
 session_start();
 $emp_ID = $_SESSION['emp_ID'];
-$select = "SELECT * FROM employee where emp_ID = '$emp_ID'";
+$select = "SELECT * FROM vemployeedetails where emp_ID = '$emp_ID'";
 $result = mysqli_query($con, $select);
 if($row = mysqli_fetch_assoc($result)){
     $emp_ID = $row['emp_ID'];
-    $fname = $row['fname'];
-    $lname = $row['lname'];
+    $first_name = $row['first_name'];
+    $last_name = $row['last_name'];
     $gender = $row['gender'];
     $age = $row['age'];
-    $contact_add = $row['contact_add'];
-    $emp_email = $row['emp_email'];
+    $contact_address = $row['contact_address'];
+    $email = $row['email'];
+    $position = $row['position'];
+    $requirements = $row['requirements'];
+    $qualification_date = $row['qualification_date'];
 }
 ?>
 <!DOCTYPE html>
