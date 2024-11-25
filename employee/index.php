@@ -44,7 +44,7 @@ if($row = mysqli_fetch_assoc($result)){
         <!-- Profile Section -->
         <div class="card mb-4">
             <div class="card-body text-center">
-                <img src="https://eurekapuzzles.com/cdn/shop/files/57431.png?v=1712509014" class="rounded-circle mb-3 avatar-employee" alt="Profile Picture" style="max-width: 100px; height: auto; margin: 0px; width: auto;">
+                <img src="https://eurekapuzzles.com/cdn/shop/files/57431.png?v=1712509014" class="rounded-circle mb-3 avatar-employee" alt="Profile Picture" style="max-width: 100px; height: 100px; margin: 0px; width: 100px;">
                 <h4><?php echo htmlspecialchars($first_name) . " " . htmlspecialchars($last_name); ?></h4>
                 <p class="text-muted"><?php echo $position ?></p>
             </div>
@@ -58,7 +58,7 @@ if($row = mysqli_fetch_assoc($result)){
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <strong> First Name:</strong>
+                        <strong> First Name</strong>
                         <p> <?php echo $first_name ?></p>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -66,11 +66,11 @@ if($row = mysqli_fetch_assoc($result)){
                         <p> <?php echo $last_name ?></p>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <strong>Email Address:</strong>
+                        <strong>Email Address</strong>
                         <p> <?php echo $email ?></p>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <strong>Phone:</strong>
+                        <strong>Phone</strong>
                         <p> <?php echo $contact_address ?></p>
                     </div>
                     
@@ -90,11 +90,11 @@ if($row = mysqli_fetch_assoc($result)){
                         <p><?php echo $position ?> </p>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <strong>required</strong>
+                        <strong>Experience</strong>
                         <p><?php  echo $requirements ?></p>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <strong>Time:</strong>
+                        <strong>Qualification date </strong>
                         <p> <?php echo $qualification_date ?></p>
                     </div>
                     
