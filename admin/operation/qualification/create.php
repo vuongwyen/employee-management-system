@@ -5,10 +5,10 @@ if (!$con) {
 }
 
 if (isset($_POST['submit'])) {
-    $emp_ID = $_POST['emp_ID'];
-    $position = $_POST['position'];
-    $requirements = $_POST['requirements'];
-    $date_in = $_POST['date_in'];
+    $emp_ID = mysqli_real_escape_string($con, $_POST['emp_ID']);
+    $position = mysqli_real_escape_string($con, $_POST['position']);
+    $requirements = mysqli_real_escape_string($con, $_POST['requirements']);
+    $date_in = mysqli_real_escape_string($con, $_POST['date_in']);
 
     $sql = "INSERT INTO qualification (emp_ID, position, requirements, date_in) 
             VALUES ('$emp_ID', '$position', '$requirements', '$date_in')";
@@ -16,12 +16,14 @@ if (isset($_POST['submit'])) {
     $result = mysqli_query($con, $sql);
     if ($result) {
         echo "<script>alert('Qualification added successfully');</script>";
-        header("Location: ../../../admin//qualification.php");
+        header("Location: ../../../admin/qualification.php");
+        exit();
     } else {
         die(mysqli_error($con));
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

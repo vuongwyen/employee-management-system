@@ -5,7 +5,7 @@ if(!$con){
 }
 if(isset($_GET['deletequal_ID'])){
     $qual_ID=$_GET['deletequal_ID'];
-    $sql="DELETE FROM payroll WHERE qual_ID='$qual_ID'";
+    $sql="DELETE FROM qualification WHERE qual_ID='$qual_ID'";
     $result=mysqli_query($con,$sql);
     if($result){
         header("Location:../../../admin/qualification.php");

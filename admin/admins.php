@@ -1,3 +1,12 @@
+<?php
+@include '../connection/connect.php';
+$select = "SELECT * FROM users";
+if (isset($_POST['search'])) {
+    $search_keyword = mysqli_real_escape_string($con, $_POST['search_keyword']);
+    $select .= " WHERE lname LIKE '%$search_keyword%' OR lname LIKE '%$search_keyword%'";
+}
+$result = mysqli_query($con, $select);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,11 +28,68 @@
         <?php include 'sidebar.php'; ?>
         <!-- Main content -->
         <div class="main p-3">
-            <div class="text-center">
-                <h1>
-                    Admins
-                </h1>
+            <div class="text-center mb-5">
+                <h1>User Management</h1>
             </div>
+            <form method="post">
+                <div class="row mb-3">
+                    <div class="col-sm">
+                        <input type="text" name="search_keyword" class="form-control" placeholder="Search by name" value="<?php echo isset($search_keyword) ? $search_keyword : ''; ?>">
+                    </div>
+                    <div class="col-sm">
+                        <button type="submit" name="search" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+            </form>
+            <button class="btn btn-primary mb-3">
+                <a href="operation/admins/create.php" class="text-light">Add User</a>
+            </button>
+            <table class="table table-inverse">
+                <thead>
+                    <tr>
+                        <th>Admin ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Gender</th>
+                        <th>Age</th>
+                        <th>Contact Address</th>
+                        <th>Email</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if ($result) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $admin_ID = $row['admin_ID'];
+                            $fname = $row['fname'];
+                            $lname = $row['lname'];
+                            $gender = $row['gender'];
+                            $age = $row['age'];
+                            $contact_add = $row['contact_add'];
+                            $admin_email = $row['admin_email'];
+                            echo '<tr>
+                                <td>' . $admin_ID . '</td>
+                                <td>' . $fname . '</td>
+                                <td>' . $lname . '</td>
+                                <td>' . $gender . '</td>
+                                <td>' . $age . '</td>
+                                <td>' . $contact_add . '</td>
+                                <td>' . $admin_email . '</td>
+                                <td>
+                                    <button class="btn btn-success">
+                                        <a href="operation/admins/update.php?updateadmin_ID=' . $admin_ID . '" class="text-light">Update</a>
+                                    </button>
+                                    <button class="btn btn-danger">
+                                        <a href="operation/admins/delete.php?deleteadmin_ID=' . $admin_ID . '" class="text-light">Delete</a>
+                                    </button>
+                                </td>
+                            </tr>';
+                        }
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

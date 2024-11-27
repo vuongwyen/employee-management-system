@@ -1,7 +1,8 @@
 <?php
-include '../../../connection/connect.php';
+include '../../../connection/connect.php'; // Đảm bảo đường dẫn đúng
+
 if (!$con) {
-    die("Connection failed: " . mysqli_error($con));
+    die(mysqli_error($con));
 }
 
 if (isset($_POST['submit'])) {
@@ -10,69 +11,70 @@ if (isset($_POST['submit'])) {
     $gender = $_POST['gender'];
     $age = $_POST['age'];
     $contact_add = $_POST['contact_add'];
-    $emp_email = $_POST['emp_email'];
-    $emp_pass = $_POST['emp_pass'];
+    $admin_email = $_POST['admin_email'];
+    $admin_pass = $_POST['admin_pass'];
 
-    $sql = "INSERT INTO employee (fname, lname, gender, age, contact_add, emp_email, emp_pass) 
-            VALUES ('$fname', '$lname', '$gender', '$age', '$contact_add', '$emp_email', '$emp_pass')";
-    $query = mysqli_query($con, $sql);
+    $sql = "INSERT INTO users (fname, lname, gender, age, contact_add, admin_email, admin_pass) 
+            VALUES ('$fname', '$lname', '$gender', '$age', '$contact_add', '$admin_email', '$admin_pass')";
 
-    if ($query) {
-        echo "<script>alert('Employee added successfully');</script>";
-        header("Location: ../../../admin/employee.php");
-        exit();
+    $result = mysqli_query($con, $sql);
+    if ($result) {
+        echo "<script>alert('User added successfully');</script>";
+        header("Location:../../../admin/admins.php");
     } else {
-        echo "Error: " . mysqli_error($con);
+        die(mysqli_error($con));
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Add Employee</title>
+    <title>Add User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container my-5">
-        <h2 class="text-right">Add New Employee</h2>
-        <form method="POST" action="">
-            <div class="form-group">
+        <h3>Add User</h3>
+        <form method="POST">
+            <div class="mb-3">
                 <label class="form-label">First Name</label>
-                <input type="text" class="form-control" name="fname" placeholder="Enter First Name" autocomplete="off" required>
+                <input type="text" class="form-control" name="fname" required>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label class="form-label">Last Name</label>
-                <input type="text" class="form-control" name="lname" placeholder="Enter Last Name" autocomplete="off" required>
+                <input type="text" class="form-control" name="lname" required>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label class="form-label">Gender</label>
                 <select class="form-control" name="gender" required>
-                    <option value="" disabled selected>Select Gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label class="form-label">Age</label>
-                <input type="number" class="form-control" name="age" placeholder="Enter Age" autocomplete="off" required>
+                <input type="number" class="form-control" name="age" required>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label class="form-label">Contact Address</label>
-                <input type="text" class="form-control" name="contact_add" placeholder="Enter Contact Address" autocomplete="off" required>
+                <input type="text" class="form-control" name="contact_add" required>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input type="email" class="form-control" name="emp_email" placeholder="Enter Email" autocomplete="off" required>
+                <input type="email" class="form-control" name="admin_email" required>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label class="form-label">Password</label>
-                <input type="text" class="form-control" name="emp_pass" placeholder="Enter Password" autocomplete="off" required>
+                <input type="text" class="form-control" name="admin_pass" required>
             </div>
-            <br>
-            <button type="submit" name="submit" class="btn btn-primary">Add Employee</button>
+            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 </body>
+
 </html>

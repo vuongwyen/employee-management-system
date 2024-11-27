@@ -12,10 +12,10 @@ $requirements = $row['requirements'];
 $date_in = $row['date_in'];
 
 if (isset($_POST['submit'])) {
-    $emp_ID = $_POST['emp_ID'];
-    $position = $_POST['position'];
-    $requirements = $_POST['requirements'];
-    $date_in = $_POST['date_in'];
+    $emp_ID = mysqli_real_escape_string($con, $_POST['emp_ID']);
+    $position = mysqli_real_escape_string($con, $_POST['position']);
+    $requirements = mysqli_real_escape_string($con, $_POST['requirements']);
+    $date_in = mysqli_real_escape_string($con, $_POST['date_in']);
 
     $sql = "UPDATE qualification 
             SET emp_ID = '$emp_ID', position = '$position', 
@@ -25,12 +25,14 @@ if (isset($_POST['submit'])) {
     $result = mysqli_query($con, $sql);
     if ($result) {
         echo "<script>alert('Qualification updated successfully');</script>";
-        header("Location: ../../../admin/qualification.php");
+        header("Location: ../../../qualification.php");
+        exit();
     } else {
         die(mysqli_error($con));
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

@@ -1,30 +1,16 @@
 <?php
 include '../../../connection/connect.php';
+$admin_ID = $_GET['updateadmin_ID'];
+$sql = "SELECT * FROM users WHERE admin_ID = $admin_ID";
+$result = mysqli_query($con, $sql);
+$row = mysqli_fetch_assoc($result);
 
-if (!$con) {
-    die("Connection error: " . mysqli_connect_error());
-}
-
-
-$emp_ID = $_GET['updateemp_ID'];
-
-
-$sql = "SELECT * FROM employee WHERE emp_ID = $emp_ID";
-$query = mysqli_query($con, $sql);
-
-if (!$query) {
-    die("Query failed: " . mysqli_error($con));
-}
-
-
-$row = mysqli_fetch_assoc($query);
 $fname = $row['fname'];
 $lname = $row['lname'];
 $gender = $row['gender'];
 $age = $row['age'];
 $contact_add = $row['contact_add'];
-$emp_email = $row['emp_email'];
-$emp_pass = $row['emp_pass'];
+$admin_email = $row['admin_email'];
 
 if (isset($_POST['submit'])) {
     $fname = $_POST['fname'];
@@ -32,24 +18,19 @@ if (isset($_POST['submit'])) {
     $gender = $_POST['gender'];
     $age = $_POST['age'];
     $contact_add = $_POST['contact_add'];
-    $emp_email = $_POST['emp_email'];
-    $emp_pass = $_POST['emp_pass'];
+    $admin_email = $_POST['admin_email'];
 
-    $sql = "UPDATE employee 
-            SET fname = '$fname', 
-                lname = '$lname', 
-                gender = '$gender', 
-                age = $age, 
-                contact_add = $contact_add, 
-                emp_email = '$emp_email', 
-                emp_pass = '$emp_pass' 
-            WHERE emp_ID = $emp_ID";
+    $sql = "UPDATE users
+            SET fname = '$fname', lname = '$lname', gender = '$gender', 
+                age = '$age', contact_add = '$contact_add', admin_email = '$admin_email' 
+            WHERE admin_ID = $admin_ID";
+
     $result = mysqli_query($con, $sql);
-
     if ($result) {
-        header("Location: ../../../admin/employee.php");
+        echo "<script>alert('User updated successfully');</script>";
+        header("Location:../../../admin/admins.php");
     } else {
-        die("Update failed: " . mysqli_error($con));
+        die(mysqli_error($con));
     }
 }
 ?>
@@ -64,39 +45,34 @@ if (isset($_POST['submit'])) {
 </head>
 <body>
     <div class="container my-5">
-        <form method="POST" action="">
-            <div class="form-group">
+        <form method="POST">
+            <div class="mb-3">
                 <label class="form-label">First Name</label>
-                <input type="text" class="form-control" name="fname" value="<?php echo $fname ?>" required>
+                <input type="text" class="form-control" name="fname" value="<?php echo $fname; ?>" required>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label class="form-label">Last Name</label>
-                <input type="text" class="form-control" name="lname" value="<?php echo $lname ?>" required>
+                <input type="text" class="form-control" name="lname" value="<?php echo $lname; ?>" required>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label class="form-label">Gender</label>
-                <select class="form-control" name="gender">
+                <select class="form-control" name="gender" required>
                     <option value="Male" <?php if ($gender == 'Male') echo 'selected'; ?>>Male</option>
                     <option value="Female" <?php if ($gender == 'Female') echo 'selected'; ?>>Female</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label class="form-label">Age</label>
-                <input type="number" class="form-control" name="age" value="<?php echo $age ?>" required>
+                <input type="number" class="form-control" name="age" value="<?php echo $age; ?>" required>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label class="form-label">Contact Address</label>
-                <input type="text" class="form-control" name="contact_add" value="<?php echo $contact_add ?>" required>
+                <input type="text" class="form-control" name="contact_add" value="<?php echo $contact_add; ?>" required>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input type="email" class="form-control" name="emp_email" value="<?php echo $emp_email ?>" required>
+                <input type="email" class="form-control" name="admin_email" value="<?php echo $admin_email; ?>" required>
             </div>
-            <div class="form-group">
-                <label class="form-label">Password</label>
-                <input type="text" class="form-control" name="emp_pass" value="<?php echo $emp_pass ?>" required>
-            </div>
-            <br>
             <button type="submit" name="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
