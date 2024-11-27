@@ -54,7 +54,7 @@ $result = mysqli_query($con, $select);
                     <th>Position</th>
                     <th>Requirements</th>
                     <th>Date in</th>
-                    <th>Operation</th>
+                    <th>Operation</th> 
                 </tr>
             </thead>
             <tbody>
