@@ -1,3 +1,8 @@
+<?php
+    include "../connection/connect.php";
+    $sql= "SELECT COUNT(*) AS total_employee FROM employee";
+    $result = $con->query($sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,6 +28,18 @@
                 <h1>
                     Hello admin!
                 </h1>
+                <div class="card">
+                    <div class="card-header">Tổng nhân viên :
+                    <?php
+                            if ($result->num_rows > 0) {
+                                $row = $result->fetch_assoc();
+                                echo $row['total_employee'];
+                            } else {
+                                echo "Không tìm thấy dữ liệu.";
+                            }
+                        ?>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
