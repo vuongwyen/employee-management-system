@@ -1,10 +1,33 @@
 <?php
 @include '../connection/connect.php';
+
+// Truy vấn cơ bản
 $select = "SELECT * FROM payroll";
+
+// Xử lý tìm kiếm theo từ khóa và khoảng thời gian
 if (isset($_POST['search'])) {
     $search_keyword = mysqli_real_escape_string($con, $_POST['search_keyword']);
-    $select .= " WHERE date LIKE '%$search_keyword%'";
+    $start_date = mysqli_real_escape_string($con, $_POST['start_date']);
+    $end_date = mysqli_real_escape_string($con, $_POST['end_date']);
+
+    $conditions = [];
+
+    // Thêm điều kiện tìm kiếm theo từ khóa
+    if (!empty($search_keyword)) {
+        $conditions[] = "date LIKE '%$search_keyword%'";
+    }
+
+    // Thêm điều kiện tìm kiếm theo khoảng thời gian
+    if (!empty($start_date) && !empty($end_date)) {
+        $conditions[] = "date BETWEEN '$start_date' AND '$end_date'";
+    }
+
+    // Gộp các điều kiện lại thành câu lệnh WHERE
+    if (!empty($conditions)) {
+        $select .= " WHERE " . implode(' AND ', $conditions);
+    }
 }
+
 $result = mysqli_query($con, $select);
 ?>
 <!DOCTYPE html>
@@ -33,13 +56,22 @@ $result = mysqli_query($con, $select);
                     Payroll
                 </h1>
             </div>
-            <form method="post">
-                <div class="row mb-3">
-                    <div class="col-sm">
-                        <input type="text" name="search_keyword" class="form-control" placeholder="Search by Date" value="<?php echo isset($search_keyword) ? $search_keyword : ''; ?>">
+            <form method="post" class="me-auto right" style="max-width: 400px;">
+                <div class="mb-3">
+                    <div class="col-12 mb-2">
+                        <input type="text" name="search_keyword" class="form-control" placeholder="Search by Date"
+                            value="<?php echo isset($search_keyword) ? $search_keyword : ''; ?>">
                     </div>
-                    <div class="col-sm">
-                        <button type="submit" name="search" class="btn btn-primary">Search</button>
+                    <div class="col-12 mb-2">
+                        <input type="date" name="start_date" class="form-control"
+                            value="<?php echo isset($start_date) ? $start_date : ''; ?>">
+                    </div>
+                    <div class="col-12 mb-2">
+                        <input type="date" name="end_date" class="form-control"
+                            value="<?php echo isset($end_date) ? $end_date : ''; ?>">
+                    </div>
+                    <div class="col-12 mb-2">
+                        <button type="submit" name="search" class="btn btn-primary w-100">Search</button>
                     </div>
                 </div>
             </form>
