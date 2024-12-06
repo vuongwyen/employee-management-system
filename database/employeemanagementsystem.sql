@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 25, 2024 lúc 03:35 PM
+-- Thời gian đã tạo: Th12 06, 2024 lúc 11:52 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -43,13 +43,13 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`emp_ID`, `fname`, `lname`, `gender`, `age`, `contact_add`, `emp_email`, `emp_pass`) VALUES
-(1, 'Banh', 'Da Cu', 'Male', 22, 113, 'banhdacua@gmail.com', '12345'),
-(2, 'An', 'Tey', 'Female', 27, 113, 'antey@gmail.com', '12345'),
-(3, 'Nguyen', 'Van A', 'Male', 30, 123, 'nguyenvana@gmail.com', '12345'),
-(4, 'Tran', 'Thi B', 'Female', 25, 456, 'tranthib@gmail.com', '12345'),
-(5, 'Le', 'Hoang C', 'Male', 28, 789, 'lehoangc@gmail.com', '12345'),
-(6, 'Pham', 'Thi D', 'Female', 32, 321, 'phamthid@gmail.com', '12345'),
-(8, 'Tong', 'Na', 'Female', 22, 15322, 'natong@gmail.com', '12345');
+(1, 'Banh', 'Da Cu', 'Male', 22, 113, 'banhdacua@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b'),
+(2, 'An', 'Tey', 'Female', 27, 113, 'antey@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b'),
+(3, 'Nguyen', 'Van A', 'Male', 30, 123, 'nguyenvana@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b'),
+(4, 'Tran', 'Thi B', 'Female', 25, 456, 'tranthib@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b'),
+(5, 'Le', 'Hoang C', 'Male', 28, 789, 'lehoangc@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b'),
+(6, 'Pham', 'Thi D', 'Female', 32, 321, 'phamthid@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b'),
+(8, 'Tong', 'Na', 'Female', 22, 15322, 'natong@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b');
 
 -- --------------------------------------------------------
 
@@ -79,6 +79,20 @@ INSERT INTO `job_department` (`job_ID`, `job_dept`, `name`, `description`, `sala
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `expiry` datetime NOT NULL,
+  `user_type` enum('employee','admin') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `payroll`
 --
 
@@ -98,8 +112,8 @@ CREATE TABLE `payroll` (
 --
 
 INSERT INTO `payroll` (`payroll_ID`, `emp_ID`, `job_ID`, `salary_ID`, `leave_ID`, `date`, `report`, `total_amount`) VALUES
-(1, 3, 1, 1, NULL, '2024-10-01', 'Monthly salary', 6500),
-(2, 4, 2, 2, NULL, '2024-10-01', 'Monthly salary', 5000),
+(1, 3, 1, 1, 0, '2024-10-01', 'Monthly salary', 6500),
+(2, 4, 2, 2, 0, '2024-10-01', 'Monthly salary', 5000),
 (3, 5, 3, 3, NULL, '2024-10-01', 'Monthly salary', 5500),
 (4, 6, 4, 4, NULL, '2024-10-01', 'Monthly salary', 4800);
 
@@ -150,7 +164,8 @@ INSERT INTO `salary_bonus` (`salary_ID`, `job_ID`, `amount`, `annual`, `bonus`) 
 (1, 1, 6500, '2024-12-31', '2024-11-15'),
 (2, 2, 5000, '2024-12-31', '2024-11-15'),
 (3, 3, 5500, '2024-12-31', '2024-11-15'),
-(4, 4, 4800, '2024-12-31', '2024-11-15');
+(4, 4, 4800, '2024-12-31', '2024-11-15'),
+(7, 5, 5000, '2024-11-14', '2024-11-12');
 
 -- --------------------------------------------------------
 
@@ -174,7 +189,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`admin_ID`, `fname`, `lname`, `gender`, `age`, `contact_add`, `admin_email`, `admin_pass`) VALUES
-(1, 'Banh', 'Da Cua', 'Male', 22, 113, 'banhdacua@gmail.com', '12345');
+(1, 'Banh', 'Da Cua', 'Male', 22, 113, 'banhdacua@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b');
 
 -- --------------------------------------------------------
 
@@ -219,6 +234,13 @@ ALTER TABLE `employee`
 --
 ALTER TABLE `job_department`
   ADD PRIMARY KEY (`job_ID`);
+
+--
+-- Chỉ mục cho bảng `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_reset` (`email`,`user_type`);
 
 --
 -- Chỉ mục cho bảng `payroll`
@@ -266,6 +288,12 @@ ALTER TABLE `job_department`
   MODIFY `job_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT cho bảng `password_resets`
+--
+ALTER TABLE `password_resets`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
 -- AUTO_INCREMENT cho bảng `payroll`
 --
 ALTER TABLE `payroll`
@@ -275,19 +303,19 @@ ALTER TABLE `payroll`
 -- AUTO_INCREMENT cho bảng `qualification`
 --
 ALTER TABLE `qualification`
-  MODIFY `qual_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `qual_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `salary_bonus`
 --
 ALTER TABLE `salary_bonus`
-  MODIFY `salary_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `salary_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `admin_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `admin_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
