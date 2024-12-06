@@ -12,7 +12,7 @@ if (isset($_POST['submit'])) {
     $age = $_POST['age'];
     $contact_add = $_POST['contact_add'];
     $admin_email = $_POST['admin_email'];
-    $admin_pass = $_POST['admin_pass'];
+    $admin_pass = md5($_POST['admin_pass']);
 
     $sql = "INSERT INTO users (fname, lname, gender, age, contact_add, admin_email, admin_pass) 
             VALUES ('$fname', '$lname', '$gender', '$age', '$contact_add', '$admin_email', '$admin_pass')";
