@@ -80,7 +80,6 @@ if ($topSalaryResult && $topSalaryResult->num_rows > 0) {
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script/script.js"></script>
 </head>
 
 <body>
@@ -323,6 +322,8 @@ if ($topSalaryResult && $topSalaryResult->num_rows > 0) {
                 });
             </script>
         </div>
+    </div>
+    <script src="script/script.js"></script>
 </body>
 
 </html>
