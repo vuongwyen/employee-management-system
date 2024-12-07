@@ -2,20 +2,23 @@
 @include '../connection/connect.php';
 session_start();
 $emp_ID = $_SESSION['emp_ID'];
-$select = "SELECT * FROM vemployeedetails where emp_ID = '$emp_ID'";
-$result = mysqli_query($con, $select);
-if($row = mysqli_fetch_assoc($result)){
-    $emp_ID = $row['emp_ID'];
-    $first_name = $row['first_name'];
-    $last_name = $row['last_name'];
-    $gender = $row['gender'];
-    $age = $row['age'];
-    $contact_address = $row['contact_address'];
-    $email = $row['email'];
-    $position = $row['position'];
-    $requirements = $row['requirements'];
-    $qualification_date = $row['qualification_date'];
+$sql = "SELECT emp_ID, first_name, last_name, position, total_salary, bonus_amount, bonus_date FROM vemployeedetails WHERE emp_ID = '$emp_ID'";
+$result = $con->query($sql);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $first_name = $row['first_name'];
+        $last_name = $row['last_name'];
+        $position = $row['position'];
+        $total_salary = $row['total_salary'];
+        $bonus_amount = $row['bonus_amount'];
+        $bonus_date = $row['bonus_date'];
+    }
+} else {
+    echo "No data";
 }
+$con->close();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +46,30 @@ if($row = mysqli_fetch_assoc($result)){
                     Pay Roll
                 </h1>
             </div>
+            <table class="table table-inverse">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Position</th>
+                        <th>Total salary</th>
+                        <th>Bonus amount</th>
+                        <th>Bonus date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><?php echo $emp_ID ?></td>
+                        <td><?php echo $first_name ?></td>
+                        <td><?php echo $last_name ?></td>
+                        <td><?php echo $position ?></td>
+                        <td><?php echo $total_salary ?></td>
+                        <td><?php echo $bonus_amount ?></td>
+                        <td><?php echo $bonus_date ?></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

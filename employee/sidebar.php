@@ -1,32 +1,32 @@
 <aside id="sidebar">
-            <div class="d-flex">
-                <button class="toggle-btn" type="button">
-                    <i class="lni lni-grid-alt"></i>
-                </button>
-                <div class="sidebar-logo">
-                    <a href="index.php">Hello <?php echo htmlspecialchars($first_name) . " " . htmlspecialchars($last_name); ?>!</a>
-                </div>
-            </div>
-            <ul class="sidebar-nav">
-                <li class="sidebar-item">
+    <div class="d-flex">
+        <button class="toggle-btn" type="button">
+            <i class="lni lni-grid-alt"></i>
+        </button>
+        <div class="sidebar-logo">
+            <a href="index.php">Hello <?php echo htmlspecialchars($first_name) . " " . htmlspecialchars($last_name); ?>!</a>
+        </div>
+    </div>
+    <ul class="sidebar-nav">
+        <!-- <li class="sidebar-item">
                     <a href="jobDepartment.php" class="sidebar-link">
                         <i class="lni lni-agenda"></i>
                         <span>Job Department</span>
                     </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="payRoll.php" class="sidebar-link">
-                        <i class="bi bi-cash"></i>
-                        <span>Pay Roll</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
+                </li> -->
+        <li class="sidebar-item">
+            <a href="payRoll.php" class="sidebar-link">
+                <i class="bi bi-cash"></i>
+                <span>Pay Roll</span>
+            </a>
+        </li>
+        <!-- <li class="sidebar-item">
                     <a href="salaryBonus.php" class="sidebar-link">
                         <i class="bi bi-coin"></i>
                         <span>Salary Bonus</span>
                     </a>
-                </li>
-                <!-- <li class="sidebar-item">
+                </li> -->
+        <!-- <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                         data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
                         <i class="lni lni-protection"></i>
@@ -76,11 +76,11 @@
                         <span>Setting</span>
                     </a>
                 </li> -->
-            </ul>
-            <div class="sidebar-footer">
-                <a href="../logout.php" class="sidebar-link">
-                    <i class="lni lni-exit"></i>
-                    <span>Logout</span>
-                </a>
-            </div>
-        </aside>
+    </ul>
+    <div class="sidebar-footer">
+        <a href="../logout.php" class="sidebar-link">
+            <i class="lni lni-exit"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+</aside>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 06, 2024 lúc 11:52 AM
+-- Thời gian đã tạo: Th12 07, 2024 lúc 03:22 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -115,7 +115,8 @@ INSERT INTO `payroll` (`payroll_ID`, `emp_ID`, `job_ID`, `salary_ID`, `leave_ID`
 (1, 3, 1, 1, 0, '2024-10-01', 'Monthly salary', 6500),
 (2, 4, 2, 2, 0, '2024-10-01', 'Monthly salary', 5000),
 (3, 5, 3, 3, NULL, '2024-10-01', 'Monthly salary', 5500),
-(4, 6, 4, 4, NULL, '2024-10-01', 'Monthly salary', 4800);
+(4, 6, 4, 4, NULL, '2024-10-01', 'Monthly salary', 4800),
+(6, 1, 5, 7, NULL, '2024-12-07', 'Monthly salary\r\n', 15000);
 
 -- --------------------------------------------------------
 
@@ -170,6 +171,22 @@ INSERT INTO `salary_bonus` (`salary_ID`, `job_ID`, `amount`, `annual`, `bonus`) 
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc đóng vai cho view `salary_details`
+-- (See below for the actual view)
+--
+CREATE TABLE `salary_details` (
+`emp_ID` int(11)
+,`fname` varchar(255)
+,`lname` varchar(255)
+,`payment_date` date
+,`salary` int(11)
+,`bonus_amount` int(11)
+,`bonus_date` date
+);
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `users`
 --
 
@@ -208,7 +225,20 @@ CREATE TABLE `vemployeedetails` (
 ,`position` varchar(30)
 ,`requirements` varchar(30)
 ,`qualification_date` date
+,`total_salary` int(11)
+,`bonus_amount` int(11)
+,`annual_salary_date` date
+,`bonus_date` date
 );
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc cho view `salary_details`
+--
+DROP TABLE IF EXISTS `salary_details`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `salary_details`  AS SELECT `e`.`emp_ID` AS `emp_ID`, `e`.`fname` AS `fname`, `e`.`lname` AS `lname`, `p`.`date` AS `payment_date`, `p`.`total_amount` AS `salary`, `sb`.`amount` AS `bonus_amount`, `sb`.`bonus` AS `bonus_date` FROM ((`payroll` `p` left join `salary_bonus` `sb` on(`p`.`salary_ID` = `sb`.`salary_ID`)) join `employee` `e` on(`p`.`emp_ID` = `e`.`emp_ID`)) ;
 
 -- --------------------------------------------------------
 
@@ -217,7 +247,7 @@ CREATE TABLE `vemployeedetails` (
 --
 DROP TABLE IF EXISTS `vemployeedetails`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vemployeedetails`  AS SELECT `e`.`emp_ID` AS `emp_ID`, `e`.`fname` AS `first_name`, `e`.`lname` AS `last_name`, `e`.`gender` AS `gender`, `e`.`age` AS `age`, `e`.`contact_add` AS `contact_address`, `e`.`emp_email` AS `email`, `q`.`position` AS `position`, `q`.`requirements` AS `requirements`, `q`.`date_in` AS `qualification_date` FROM (`employee` `e` left join `qualification` `q` on(`e`.`emp_ID` = `q`.`emp_ID`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vemployeedetails`  AS SELECT `e`.`emp_ID` AS `emp_ID`, `e`.`fname` AS `first_name`, `e`.`lname` AS `last_name`, `e`.`gender` AS `gender`, `e`.`age` AS `age`, `e`.`contact_add` AS `contact_address`, `e`.`emp_email` AS `email`, `q`.`position` AS `position`, `q`.`requirements` AS `requirements`, `q`.`date_in` AS `qualification_date`, `p`.`total_amount` AS `total_salary`, `sb`.`amount` AS `bonus_amount`, `sb`.`annual` AS `annual_salary_date`, `sb`.`bonus` AS `bonus_date` FROM (((`employee` `e` left join `qualification` `q` on(`e`.`emp_ID` = `q`.`emp_ID`)) left join `payroll` `p` on(`e`.`emp_ID` = `p`.`emp_ID`)) left join `salary_bonus` `sb` on(`p`.`salary_ID` = `sb`.`salary_ID`)) ;
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -291,13 +321,13 @@ ALTER TABLE `job_department`
 -- AUTO_INCREMENT cho bảng `password_resets`
 --
 ALTER TABLE `password_resets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT cho bảng `payroll`
 --
 ALTER TABLE `payroll`
-  MODIFY `payroll_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `payroll_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `qualification`

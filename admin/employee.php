@@ -47,49 +47,49 @@ $result = mysqli_query($con, $select);
                 <a href="operation/employee/create.php" class="text-light">Add employee</a>
             </button>
             <table class="table table-inverse">
-            <thead>
-                <tr>
-                    <th>Employee ID</th>
-                    <th>First name</th>
-                    <th>Last name</th>
-                    <th>Gender</th>
-                    <th>Age</th>
-                    <th>Contact Address</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th>Operation</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if ($result) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        $emp_ID = $row['emp_ID'];
-                        $fname = $row['fname'];
-                        $lname = $row['lname'];
-                        $gender = $row['gender'];
-                        $age = $row['age'];
-                        $contact_add = $row['contact_add'];
-                        $emp_email = $row['emp_email'];
-                        $emp_pass = $row['emp_pass'];
-                        echo '<tr>
-                            <td>'.$emp_ID.' </td>
-                            <td>'.$fname.' </td>
-                            <td>'.$lname.' </td>
-                            <td>'.$gender.' </td>
-                            <td>'.$age.' </td>
-                            <td>'.$contact_add.' </td>
-                            <td>'.$emp_email.' </td>
-                            <td>'.$emp_pass.' </td>
-                            <td>
-                                <button class="btn btn-success"><a href="operation/employee/update.php?updateemp_ID='.$emp_ID.'" class="text-light">Update</a></button>
-                                <button class="btn btn-danger"><a href="operation/employee/delete.php?deleteemp_ID='.$emp_ID.'" class="text-light">Delete</a></button>
-                            </td>
-                        </tr>';
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Gender</th>
+                        <th>Age</th>
+                        <th>Contact Address</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Operation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if ($result) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $emp_ID = $row['emp_ID'];
+                            $fname = $row['fname'];
+                            $lname = $row['lname'];
+                            $gender = $row['gender'];
+                            $age = $row['age'];
+                            $contact_add = $row['contact_add'];
+                            $emp_email = $row['emp_email'];
+                            $emp_pass = $row['emp_pass'];
+                            echo '<tr>
+                                <td>' . $emp_ID . ' </td>
+                                <td>' . $fname . ' </td>
+                                <td>' . $lname . ' </td>
+                                <td>' . $gender . ' </td>
+                                <td>' . $age . ' </td>
+                                <td>' . $contact_add . ' </td>
+                                <td>' . $emp_email . ' </td>
+                                <td>' . $emp_pass . ' </td>
+                                <td>
+                                    <button class="btn btn-success"><a href="operation/employee/update.php?updateemp_ID=' . $emp_ID . '" class="text-light">Update</a></button>
+                                    <button class="btn btn-danger"><a href="operation/employee/delete.php?deleteemp_ID=' . $emp_ID . '" class="text-light">Delete</a></button>
+                                </td>
+                            </tr>';
+                        }
                     }
-                }
-                ?>
-            </tbody>
+                    ?>
+                </tbody>
             </table>
         </div>
     </div>
