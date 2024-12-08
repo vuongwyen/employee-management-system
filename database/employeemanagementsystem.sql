@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 07, 2024 lúc 03:22 PM
+-- Thời gian đã tạo: Th12 08, 2024 lúc 02:40 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -35,21 +35,22 @@ CREATE TABLE `employee` (
   `age` int(11) DEFAULT NULL,
   `contact_add` int(11) DEFAULT NULL,
   `emp_email` varchar(255) DEFAULT NULL,
-  `emp_pass` varchar(255) DEFAULT NULL
+  `emp_pass` varchar(255) DEFAULT NULL,
+  `job_ID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `employee`
 --
 
-INSERT INTO `employee` (`emp_ID`, `fname`, `lname`, `gender`, `age`, `contact_add`, `emp_email`, `emp_pass`) VALUES
-(1, 'Banh', 'Da Cu', 'Male', 22, 113, 'banhdacua@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b'),
-(2, 'An', 'Tey', 'Female', 27, 113, 'antey@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b'),
-(3, 'Nguyen', 'Van A', 'Male', 30, 123, 'nguyenvana@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b'),
-(4, 'Tran', 'Thi B', 'Female', 25, 456, 'tranthib@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b'),
-(5, 'Le', 'Hoang C', 'Male', 28, 789, 'lehoangc@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b'),
-(6, 'Pham', 'Thi D', 'Female', 32, 321, 'phamthid@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b'),
-(8, 'Tong', 'Na', 'Female', 22, 15322, 'natong@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b');
+INSERT INTO `employee` (`emp_ID`, `fname`, `lname`, `gender`, `age`, `contact_add`, `emp_email`, `emp_pass`, `job_ID`) VALUES
+(1, 'Banh', 'Da Cu', 'Male', 22, 113, 'banhdacua@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 5),
+(2, 'An', 'Tey', 'Female', 27, 113, 'antey@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', NULL),
+(3, 'Nguyen', 'Van A', 'Male', 30, 123, 'nguyenvana@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 1),
+(4, 'Tran', 'Thi B', 'Female', 25, 456, 'tranthib@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 2),
+(5, 'Le', 'Hoang C', 'Male', 28, 789, 'lehoangc@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 3),
+(6, 'Pham', 'Thi D', 'Female', 32, 321, 'phamthid@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 3),
+(8, 'Tong', 'Na', 'Female', 22, 15322, 'natong@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', NULL);
 
 -- --------------------------------------------------------
 
@@ -257,7 +258,8 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Chỉ mục cho bảng `employee`
 --
 ALTER TABLE `employee`
-  ADD PRIMARY KEY (`emp_ID`);
+  ADD PRIMARY KEY (`emp_ID`),
+  ADD KEY `fk_job_department` (`job_ID`);
 
 --
 -- Chỉ mục cho bảng `job_department`
@@ -350,6 +352,12 @@ ALTER TABLE `users`
 --
 -- Các ràng buộc cho các bảng đã đổ
 --
+
+--
+-- Các ràng buộc cho bảng `employee`
+--
+ALTER TABLE `employee`
+  ADD CONSTRAINT `fk_job_department` FOREIGN KEY (`job_ID`) REFERENCES `job_department` (`job_ID`) ON DELETE SET NULL;
 
 --
 -- Các ràng buộc cho bảng `payroll`
