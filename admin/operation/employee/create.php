@@ -5,6 +5,7 @@ if (!$con) {
 }
 
 if (isset($_POST['submit'])) {
+    $job_ID = $_POST['job_ID'];
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
     $gender = $_POST['gender'];
@@ -13,8 +14,8 @@ if (isset($_POST['submit'])) {
     $emp_email = $_POST['emp_email'];
     $emp_pass = $_POST['emp_pass'];
 
-    $sql = "INSERT INTO employee (fname, lname, gender, age, contact_add, emp_email, emp_pass) 
-            VALUES ('$fname', '$lname', '$gender', '$age', '$contact_add', '$emp_email', '$emp_pass')";
+    $sql = "INSERT INTO employee (fname,job_ID, lname, gender, age, contact_add, emp_email, emp_pass) 
+            VALUES ('$fname','$job_ID', '$lname', '$gender', '$age', '$contact_add', '$emp_email', '$emp_pass')";
     $query = mysqli_query($con, $sql);
 
     if ($query) {
@@ -28,16 +29,22 @@ if (isset($_POST['submit'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Add Employee</title>
 </head>
+
 <body>
     <div class="container my-5">
         <h2 class="text-right">Add New Employee</h2>
         <form method="POST" action="">
+            <div class="form-group">
+                <label class="form-label">Job ID</label>
+                <input type="text" class="form-control" name="job_ID" placeholder="Enter Job ID" autocomplete="off" required>
+            </div>
             <div class="form-group">
                 <label class="form-label">First Name</label>
                 <input type="text" class="form-control" name="fname" placeholder="Enter First Name" autocomplete="off" required>
@@ -75,4 +82,5 @@ if (isset($_POST['submit'])) {
         </form>
     </div>
 </body>
+
 </html>

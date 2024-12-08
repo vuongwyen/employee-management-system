@@ -50,6 +50,7 @@ $result = mysqli_query($con, $select);
                 <thead>
                     <tr>
                         <th>Employee ID</th>
+                        <th>Job ID</th>
                         <th>First name</th>
                         <th>Last name</th>
                         <th>Gender</th>
@@ -65,6 +66,7 @@ $result = mysqli_query($con, $select);
                     if ($result) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             $emp_ID = $row['emp_ID'];
+                            $job_ID = $row['job_ID'];
                             $fname = $row['fname'];
                             $lname = $row['lname'];
                             $gender = $row['gender'];
@@ -74,6 +76,7 @@ $result = mysqli_query($con, $select);
                             $emp_pass = $row['emp_pass'];
                             echo '<tr>
                                 <td>' . $emp_ID . ' </td>
+                                <td>' . $job_ID . ' </td>
                                 <td>' . $fname . ' </td>
                                 <td>' . $lname . ' </td>
                                 <td>' . $gender . ' </td>

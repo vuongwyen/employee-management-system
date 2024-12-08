@@ -18,6 +18,7 @@ if (!$query) {
 
 
 $row = mysqli_fetch_assoc($query);
+$job_ID = $row['job_ID'];
 $fname = $row['fname'];
 $lname = $row['lname'];
 $gender = $row['gender'];
@@ -27,6 +28,7 @@ $emp_email = $row['emp_email'];
 $emp_pass = $row['emp_pass'];
 
 if (isset($_POST['submit'])) {
+    $job_ID = $_POST['job_ID'];
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
     $gender = $_POST['gender'];
@@ -36,7 +38,8 @@ if (isset($_POST['submit'])) {
     $emp_pass = $_POST['emp_pass'];
 
     $sql = "UPDATE employee 
-            SET fname = '$fname', 
+            SET job_ID = '$job_ID',
+                fname = '$fname', 
                 lname = '$lname', 
                 gender = '$gender', 
                 age = $age, 
@@ -56,15 +59,21 @@ if (isset($_POST['submit'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <title>Update Employee</title>
 </head>
+
 <body>
     <div class="container my-5">
         <form method="POST" action="">
+            <div class="form-group">
+                <label class="form-label">Job ID</label>
+                <input type="text" class="form-control" name="job_ID" value="<?php echo $job_ID ?>" required>
+            </div>
             <div class="form-group">
                 <label class="form-label">First Name</label>
                 <input type="text" class="form-control" name="fname" value="<?php echo $fname ?>" required>
@@ -101,4 +110,5 @@ if (isset($_POST['submit'])) {
         </form>
     </div>
 </body>
+
 </html>
